@@ -36,13 +36,13 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
     <div className="header">
       <div className="header-left active">
         <a href="/" className="logo logo-normal">
-          <img src="assets/img/logo.svg" alt="Logo" />
+          <img src="assets/img/logo-dark.png" alt="Logo" />
         </a>
         <a href="/" className="logo-small">
-          <img src="assets/img/logo-small.svg" alt="Logo" />
+          <img src="assets/img/logo.png" alt="Logo" />
         </a>
         <a href="/" className="dark-logo">
-          <img src="assets/img/logo-dark.svg" alt="Logo" />
+          <img src="assets/img/logo-dark.png" alt="Logo" />
         </a>
         <a
           id="toggle_btn"
@@ -75,67 +75,6 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
       <div className="header-user">
         <div className="nav user-menu">
           <div className="d-flex align-items-center">
-            {/* Academic Year */}
-            <div className="dropdown me-2">
-              <a
-                href="#"
-                className="btn btn-outline-light fw-normal bg-white d-flex align-items-center p-2"
-                onClick={(e) => {
-                  e.preventDefault();
-                  closeAll();
-                  setAcademicOpen(!academicOpen);
-                }}
-              >
-                <i className="ti ti-calendar-due me-1"></i>Academic Year : 2024 / 2025
-              </a>
-              {academicOpen && (
-                <div className="dropdown-menu dropdown-menu-right show">
-                  <a href="#" className="dropdown-item d-flex align-items-center" onClick={(e) => { e.preventDefault(); setAcademicOpen(false); }}>
-                    Academic Year : 2023 / 2024
-                  </a>
-                  <a href="#" className="dropdown-item d-flex align-items-center" onClick={(e) => { e.preventDefault(); setAcademicOpen(false); }}>
-                    Academic Year : 2022 / 2023
-                  </a>
-                  <a href="#" className="dropdown-item d-flex align-items-center" onClick={(e) => { e.preventDefault(); setAcademicOpen(false); }}>
-                    Academic Year : 2021 / 2022
-                  </a>
-                </div>
-              )}
-            </div>
-
-            {/* Language */}
-            <div className="pe-1 ms-1">
-              <div className="dropdown">
-                <a
-                  href="#"
-                  className="btn btn-outline-light bg-white btn-icon d-flex align-items-center me-1 p-2"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    closeAll();
-                    setLangOpen(!langOpen);
-                  }}
-                >
-                  <img src="assets/img/flags/us.png" alt="Language" className="img-fluid rounded-pill" />
-                </a>
-                {langOpen && (
-                  <div className="dropdown-menu dropdown-menu-right show">
-                    <a href="#" className="dropdown-item active d-flex align-items-center" onClick={(e) => { e.preventDefault(); setLangOpen(false); }}>
-                      <img className="me-2 rounded-pill" src="assets/img/flags/us.png" alt="Img" height="22" width="22" /> English
-                    </a>
-                    <a href="#" className="dropdown-item d-flex align-items-center" onClick={(e) => { e.preventDefault(); setLangOpen(false); }}>
-                      <img className="me-2 rounded-pill" src="assets/img/flags/fr.png" alt="Img" height="22" width="22" /> French
-                    </a>
-                    <a href="#" className="dropdown-item d-flex align-items-center" onClick={(e) => { e.preventDefault(); setLangOpen(false); }}>
-                      <img className="me-2 rounded-pill" src="assets/img/flags/es.png" alt="Img" height="22" width="22" /> Spanish
-                    </a>
-                    <a href="#" className="dropdown-item d-flex align-items-center" onClick={(e) => { e.preventDefault(); setLangOpen(false); }}>
-                      <img className="me-2 rounded-pill" src="assets/img/flags/de.png" alt="Img" height="22" width="22" /> German
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
-
             {/* Add New */}
             <div className="pe-1">
               <div className="dropdown">
@@ -158,7 +97,10 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                     <div className="p-3 pb-0">
                       <div className="row gx-2">
                         <div className="col-6">
-                          <a href="#" className="d-block bg-primary-transparent ronded p-2 text-center mb-3 class-hover">
+                          <a
+                            href="#"
+                            className="d-block bg-primary-transparent ronded p-2 text-center mb-3 class-hover"
+                          >
                             <div className="avatar avatar-lg mb-2">
                               <span className="d-inline-flex align-items-center justify-content-center w-100 h-100 bg-primary rounded-circle">
                                 <i className="ti ti-school"></i>
@@ -168,7 +110,10 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                           </a>
                         </div>
                         <div className="col-6">
-                          <a href="#" className="d-block bg-success-transparent ronded p-2 text-center mb-3 class-hover">
+                          <a
+                            href="#"
+                            className="d-block bg-success-transparent ronded p-2 text-center mb-3 class-hover"
+                          >
                             <div className="avatar avatar-lg mb-2">
                               <span className="d-inline-flex align-items-center justify-content-center w-100 h-100 bg-success rounded-circle">
                                 <i className="ti ti-users"></i>
@@ -197,21 +142,32 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                   }}
                 >
                   <i className="ti ti-bell"></i>
-                  <span className="badge bg-danger rounded-pill badge-top-right">5</span>
+                  <span className="badge bg-danger rounded-pill badge-top-right">
+                    5
+                  </span>
                 </a>
                 {notifOpen && (
-                  <div className="dropdown-menu dropdown-menu-right notification-dropdown show p-3" style={{ width: 350 }}>
+                  <div
+                    className="dropdown-menu dropdown-menu-right notification-dropdown show p-3"
+                    style={{ width: 350 }}
+                  >
                     <div className="d-flex align-items-center justify-content-between mb-3">
                       <h4>Notifications</h4>
                     </div>
                     <div className="border-bottom mb-3 pb-3">
                       <div className="d-flex">
                         <span className="avatar avatar-lg me-2 flex-shrink-0">
-                          <img src="assets/img/profiles/avatar-23.jpg" alt="Profile" />
+                          <img
+                            src="assets/img/profiles/avatar-23.jpg"
+                            alt="Profile"
+                          />
                         </span>
                         <div className="flex-grow-1">
                           <p className="mb-1">
-                            <span className="text-dark fw-semibold">Sylvia</span> added appointment on 02:00 PM
+                            <span className="text-dark fw-semibold">
+                              Sylvia
+                            </span>{" "}
+                            added appointment on 02:00 PM
                           </p>
                           <span>10 mins ago</span>
                         </div>
@@ -220,11 +176,21 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                     <div className="border-bottom mb-3 pb-3">
                       <div className="d-flex">
                         <span className="avatar avatar-lg me-2 flex-shrink-0">
-                          <img src="assets/img/profiles/avatar-25.jpg" alt="Profile" />
+                          <img
+                            src="assets/img/profiles/avatar-25.jpg"
+                            alt="Profile"
+                          />
                         </span>
                         <div className="flex-grow-1">
                           <p className="mb-1">
-                            New student record <span className="text-dark fw-semibold">George</span> is created by <span className="text-dark fw-semibold">Teressa</span>
+                            New student record{" "}
+                            <span className="text-dark fw-semibold">
+                              George
+                            </span>{" "}
+                            is created by{" "}
+                            <span className="text-dark fw-semibold">
+                              Teressa
+                            </span>
                           </p>
                           <span>2 hrs ago</span>
                         </div>
@@ -233,21 +199,6 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                   </div>
                 )}
               </div>
-            </div>
-
-            {/* Chat */}
-            <div className="pe-1">
-              <a href="#" className="btn btn-outline-light bg-white btn-icon position-relative me-1">
-                <i className="ti ti-brand-hipchat"></i>
-                <span className="chat-status-dot"></span>
-              </a>
-            </div>
-
-            {/* Chart */}
-            <div className="pe-1">
-              <a href="#" className="btn btn-outline-light bg-white btn-icon me-1">
-                <i className="ti ti-chart-bar"></i>
-              </a>
             </div>
 
             {/* Dark/Light Mode */}
@@ -284,7 +235,9 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                   toggleFullscreen();
                 }}
               >
-                <i className={`ti ${isFullscreen ? "ti-minimize" : "ti-maximize"}`}></i>
+                <i
+                  className={`ti ${isFullscreen ? "ti-minimize" : "ti-maximize"}`}
+                ></i>
               </a>
             </div>
 
@@ -300,7 +253,11 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                 }}
               >
                 <span className="avatar avatar-md rounded">
-                  <img src="assets/img/profiles/avatar-27.jpg" alt="Img" className="img-fluid" />
+                  <img
+                    src="assets/img/profiles/avatar-27.jpg"
+                    alt="Img"
+                    className="img-fluid"
+                  />
                 </span>
               </a>
               {profileOpen && (
@@ -308,7 +265,10 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                   <div className="d-block">
                     <div className="d-flex align-items-center p-2">
                       <span className="avatar avatar-md me-2 online avatar-rounded">
-                        <img src="assets/img/profiles/avatar-27.jpg" alt="img" />
+                        <img
+                          src="assets/img/profiles/avatar-27.jpg"
+                          alt="img"
+                        />
                       </span>
                       <div>
                         <h6>Kevin Larry</h6>
@@ -316,14 +276,23 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                       </div>
                     </div>
                     <hr className="m-0" />
-                    <a className="dropdown-item d-inline-flex align-items-center p-2" href="#">
+                    <a
+                      className="dropdown-item d-inline-flex align-items-center p-2"
+                      href="#"
+                    >
                       <i className="ti ti-user-circle me-2"></i>My Profile
                     </a>
-                    <a className="dropdown-item d-inline-flex align-items-center p-2" href="#">
+                    <a
+                      className="dropdown-item d-inline-flex align-items-center p-2"
+                      href="#"
+                    >
                       <i className="ti ti-settings me-2"></i>Settings
                     </a>
                     <hr className="m-0" />
-                    <a className="dropdown-item d-inline-flex align-items-center p-2" href="#">
+                    <a
+                      className="dropdown-item d-inline-flex align-items-center p-2"
+                      href="#"
+                    >
                       <i className="ti ti-login me-2"></i>Logout
                     </a>
                   </div>

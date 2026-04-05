@@ -10,7 +10,7 @@ export const AttendanceChart: React.FC = () => {
       type: "donut",
       toolbar: { show: false },
     },
-    labels: ["Present", "Absent", "Half Day", "Late"],
+    labels: ["A", "B", "C", "D"],
     colors: ["#3D5EE1", "#E82646", "#EAB300", "#6FCCD8"],
     legend: {
       show: true,
@@ -51,7 +51,20 @@ export const PerformanceChart: React.FC = () => {
       width: 3,
     },
     xaxis: {
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      categories: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
     },
     yaxis: {
       min: 0,
