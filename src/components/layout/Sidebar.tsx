@@ -4,9 +4,10 @@ interface SidebarProps {
   isCollapsed: boolean;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
+  onToggleSidebar: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, isMobileOpen, onCloseMobile }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, isMobileOpen, onCloseMobile, onToggleSidebar }) => {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>("dashboard");
 
   const toggleSubmenu = (key: string) => {
