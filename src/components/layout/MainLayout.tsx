@@ -47,6 +47,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         isCollapsed={sidebarCollapsed}
         isMobileOpen={mobileOpen}
         onCloseMobile={closeMobile}
+        onToggleSidebar={toggleSidebar}
       />
       <div className="page-wrapper">
         <div className="content">

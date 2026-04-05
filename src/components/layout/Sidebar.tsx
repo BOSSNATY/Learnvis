@@ -4,9 +4,10 @@ interface SidebarProps {
   isCollapsed: boolean;
   isMobileOpen: boolean;
   onCloseMobile: () => void;
+  onToggleSidebar: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, isMobileOpen, onCloseMobile }) => {
+const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, isMobileOpen, onCloseMobile, onToggleSidebar }) => {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>("dashboard");
 
   const toggleSubmenu = (key: string) => {
@@ -256,7 +257,21 @@ const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, isMobileOpen, onCloseMob
                   </li>
                 </ul>
               </li>
-            </ul>
+          </ul>
+          </div>
+          <div className="sidebar-toggle-btn" style={{ padding: "10px 15px", borderTop: "1px solid rgba(0,0,0,0.1)" }}>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                onToggleSidebar();
+              }}
+              className="d-flex align-items-center justify-content-center"
+              style={{ cursor: "pointer" }}
+            >
+              <i className={`ti ${isCollapsed ? "ti-chevrons-right" : "ti-chevrons-left"}`} style={{ fontSize: "20px" }}></i>
+              {!isCollapsed && <span className="ms-2">Collapse Menu</span>}
+            </a>
           </div>
         </div>
       </div>
