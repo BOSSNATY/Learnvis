@@ -41,6 +41,9 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
         <a href="/" className="logo-small">
           <img src="assets/img/logo.png" alt="Logo" />
         </a>
+        <a href="/" className="dark-logo">
+          <img src="assets/img/logo-dark.png" alt="Logo" />
+        </a>
         <a
           id="toggle_btn"
           href="#"
