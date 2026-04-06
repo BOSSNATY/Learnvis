@@ -74,7 +74,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
 
       <div className="header-user">
         <div className="nav user-menu">
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center" style={{ gap: "8px" }}>
             {/* Add New */}
             <div className="pe-1">
               <div className="dropdown">
