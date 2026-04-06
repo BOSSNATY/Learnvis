@@ -142,9 +142,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                   }}
                 >
                   <i className="ti ti-bell"></i>
-                  <span className="badge bg-danger rounded-pill badge-top-right">
-                    5
-                  </span>
+                  {/* <span className="badge bg-danger rounded-pill badge-top-right"></span> */}
                 </a>
                 {notifOpen && (
                   <div
@@ -165,7 +163,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                         <div className="flex-grow-1">
                           <p className="mb-1">
                             <span className="text-dark fw-semibold">
-                              Sylvia
+                              Tigist
                             </span>{" "}
                             added appointment on 02:00 PM
                           </p>
@@ -185,12 +183,10 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                           <p className="mb-1">
                             New student record{" "}
                             <span className="text-dark fw-semibold">
-                              George
+                              Ephrem
                             </span>{" "}
                             is created by{" "}
-                            <span className="text-dark fw-semibold">
-                              Teressa
-                            </span>
+                            <span className="text-dark fw-semibold">Meron</span>
                           </p>
                           <span>2 hrs ago</span>
                         </div>
@@ -271,7 +267,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSidebar, onMobileToggle }) => {
                         />
                       </span>
                       <div>
-                        <h6>Kevin Larry</h6>
+                        <h6>Tamrat Kibru</h6>
                         <p className="text-primary mb-0">Administrator</p>
                       </div>
                     </div>
