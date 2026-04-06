@@ -29,6 +29,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         wrapper.classList.add("mini-sidebar");
       } else {
         wrapper.classList.remove("mini-sidebar");
+        wrapper.classList.remove("expand-menu");
       }
       if (mobileOpen) {
         wrapper.classList.add("slide-nav");
@@ -39,6 +40,31 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       }
     }
   }, [sidebarCollapsed, mobileOpen]);
+
+  // Hover to expand sidebar when collapsed
+  useEffect(() => {
+    const sidebar = document.getElementById("sidebar");
+    const wrapper = document.querySelector(".main-wrapper");
+    if (!sidebar || !wrapper) return;
+
+    const handleMouseEnter = () => {
+      if (sidebarCollapsed) {
+        wrapper.classList.add("expand-menu");
+      }
+    };
+    const handleMouseLeave = () => {
+      if (sidebarCollapsed) {
+        wrapper.classList.remove("expand-menu");
+      }
+    };
+
+    sidebar.addEventListener("mouseenter", handleMouseEnter);
+    sidebar.addEventListener("mouseleave", handleMouseLeave);
+    return () => {
+      sidebar.removeEventListener("mouseenter", handleMouseEnter);
+      sidebar.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [sidebarCollapsed]);
 
   return (
     <div className="main-wrapper">
