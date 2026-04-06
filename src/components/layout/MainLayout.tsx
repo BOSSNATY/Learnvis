@@ -27,9 +27,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     if (wrapper) {
       if (sidebarCollapsed) {
         wrapper.classList.add("mini-sidebar");
+        document.body.classList.add("mini-sidebar");
       } else {
         wrapper.classList.remove("mini-sidebar");
         wrapper.classList.remove("expand-menu");
+        document.body.classList.remove("mini-sidebar");
+        document.body.classList.remove("expand-menu");
       }
       if (mobileOpen) {
         wrapper.classList.add("slide-nav");
