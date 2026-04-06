@@ -53,11 +53,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     const handleMouseEnter = () => {
       if (sidebarCollapsed) {
         wrapper.classList.add("expand-menu");
+        document.body.classList.add("expand-menu");
       }
     };
     const handleMouseLeave = () => {
       if (sidebarCollapsed) {
         wrapper.classList.remove("expand-menu");
+        document.body.classList.remove("expand-menu");
       }
     };
 
