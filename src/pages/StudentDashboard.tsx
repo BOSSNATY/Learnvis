@@ -78,13 +78,13 @@ const StudentDashboard: React.FC = () => {
                   <div className="card-header d-flex align-items-center justify-content-between">
                     <h4 className="card-title">Today's Study</h4>
                     <div className="d-inline-flex align-items-center class-datepick">
-                      <span className="icon">
+                      {/* <span className="icon">
                         <i className="ti ti-chevron-left me-2"></i>
                       </span>
                       <span className="fw-medium">16 May 2024</span>
                       <span className="icon">
                         <i className="ti ti-chevron-right ms-2"></i>
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                   <div className="card-body">
