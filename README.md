@@ -1,3 +1,5 @@
+# Learnvis - educational website
+
 This project is a smart educational website
 designed to improve how students study by
 combining interactive learning techniques with
