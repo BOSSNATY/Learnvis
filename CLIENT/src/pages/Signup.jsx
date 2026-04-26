@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { Eye, EyeOff } from "lucide-react"; // For the password toggle icons
+import { Eye, EyeOff, Check } from "lucide-react";
+import Header from "../components/Header";
 
-const Signup = () => {
+const Signup = ({ setUser }) => {
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,49 +14,43 @@ const Signup = () => {
     confirmPassword: "",
   });
 
+  const passwordStrength = () => {
+    const pass = formData.password;
+    if (pass.length === 0) return { level: 0, text: "", color: "" };
+    if (pass.length < 6) return { level: 1, text: "Weak", color: "red" };
+    if (pass.length < 10 || !/[A-Z]/.test(pass) || !/[0-9]/.test(pass))
+      return { level: 2, text: "Medium", color: "yellow" };
+    return { level: 3, text: "Strong", color: "green" };
+  };
+
+  const strength = passwordStrength();
+
   const handleSignup = async (e) => {
     e.preventDefault();
-
-    // Basic validation before even hitting the server
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
+    setIsLoading(true);
 
-    try {
-      const res = await axios.post("http://localhost:3000/api/auth/signup", {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
-      });
-
-      if (res.data.token) {
-        // Store the token so the user stays logged in
-        localStorage.setItem("token", res.data.token);
-        alert("Account created! Redirecting...");
-        navigate("/onboarding"); // Go to Grade/Subject selection
-      }
-    } catch (err) {
-      console.error("Signup Error:", err.response?.data);
-      alert(err.response?.data?.error || "Something went wrong. Try again.");
-    }
+    // Simulate API call
+    setTimeout(() => {
+      setUser({ role: "student", name: formData.name, email: formData.email });
+      setIsLoading(false);
+      navigate("/student/onboarding");
+    }, 1000);
   };
 
   return (
-    <div className="min-h-screen bg-[#080b14] flex flex-col items-center justify-center p-4 font-sans">
-      {/* Brand Header */}
-      <div className="flex items-center gap-2 mb-8">
-        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
-          {/* Simple representation of your logo icon */}
-          <div className="w-6 h-6 border-2 border-white rounded-full border-t-transparent animate-spin-slow"></div>
-        </div>
-        <h1 className="text-2xl font-bold text-white tracking-wide">
-          Learnvis
-        </h1>
-      </div>
+    <div className="min-h-screen bg-[#080b14] flex flex-col items-center justify-center p-4 font-sans relative overflow-hidden">
+      {/* Background Glow Orbs */}
+      <div className="absolute top-[5%] right-[-10%] w-96 h-96 bg-blue-600/10 rounded-full blur-[100px]"></div>
+      <div className="absolute bottom-[5%] left-[-10%] w-96 h-96 bg-purple-600/10 rounded-full blur-[100px]"></div>
+
+      <Header variant="auth" />
 
       {/* Signup Card */}
-      <div className="w-full max-w-md bg-[#111827]/50 backdrop-blur-xl border border-white/10 p-8 rounded-3xl shadow-2xl">
+      <div className="w-full max-w-md bg-[#111827]/40 backdrop-blur-2xl border border-white/10 p-8 rounded-[2rem] shadow-2xl relative z-10">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-white mb-2">
             Create Your Account
@@ -103,7 +98,7 @@ const Signup = () => {
             <input
               type={showPass ? "text" : "password"}
               placeholder="Create a password"
-              className="w-full bg-[#1f2937]/50 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50 transition-all"
+              className="w-full bg-[#1f2937]/50 border border-white/10 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-600/50 transition-all pr-12"
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
               }
@@ -116,6 +111,24 @@ const Signup = () => {
             >
               {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
+            {formData.password && (
+              <div className="mt-2 flex items-center gap-2">
+                <div className="flex-1 h-1.5 bg-gray-700 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full transition-all duration-300 ${
+                      strength.level === 1
+                        ? "bg-red-500 w-1/3"
+                        : strength.level === 2
+                          ? "bg-yellow-500 w-2/3"
+                          : "bg-green-500 w-full"
+                    }`}
+                  ></div>
+                </div>
+                <span className={`text-xs text-${strength.color}-400`}>
+                  {strength.text}
+                </span>
+              </div>
+            )}
           </div>
 
           <div>
@@ -131,6 +144,12 @@ const Signup = () => {
               }
               required
             />
+            {formData.confirmPassword &&
+              formData.password !== formData.confirmPassword && (
+                <p className="text-red-400 text-xs mt-1">
+                  Passwords do not match
+                </p>
+              )}
           </div>
 
           <div className="flex items-start gap-3 py-2">
@@ -151,8 +170,18 @@ const Signup = () => {
             </p>
           </div>
 
-          <button className="w-full bg-[#3b82f6] hover:bg-blue-600 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-blue-900/20">
-            Sign Up
+          <button
+            className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-blue-600/20 disabled:opacity-50"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <span className="flex items-center justify-center gap-2">
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                Creating account...
+              </span>
+            ) : (
+              "Sign Up"
+            )}
           </button>
         </form>
 
@@ -164,7 +193,6 @@ const Signup = () => {
           </div>
 
           <div className="flex gap-4 w-full">
-            {/* Simple Social Buttons to match your image */}
             <button className="flex-1 bg-[#1f2937] py-2.5 rounded-xl border border-white/5 flex items-center justify-center gap-2 hover:bg-gray-700 transition-all">
               <img
                 src="https://www.google.com/favicon.ico"

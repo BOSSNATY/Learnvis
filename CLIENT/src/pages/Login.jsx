@@ -1,25 +1,34 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Eye, EyeOff } from "lucide-react";
+import Header from "../components/Header";
 
-const Login = () => {
+const Login = ({ setUser }) => {
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        formData,
-      );
-      localStorage.setItem("token", res.data.token);
-      navigate("/dashboard");
-    } catch (err) {
-      alert("Login failed: Invalid email or password");
-    }
+    setIsLoading(true);
+
+    // Simulate API call
+    setTimeout(() => {
+      // Demo login - check for admin or student
+      if (formData.email === "admin@learnvis.com") {
+        setUser({ role: "admin", name: "Admin User", email: formData.email });
+        navigate("/admin/dashboard");
+      } else {
+        setUser({
+          role: "student",
+          name: "Demo Student",
+          email: formData.email,
+        });
+        navigate("/student/dashboard");
+      }
+      setIsLoading(false);
+    }, 1000);
   };
 
   return (
@@ -28,15 +37,7 @@ const Login = () => {
       <div className="absolute top-[10%] -left-20 w-80 h-80 bg-blue-600/10 rounded-full blur-[100px]"></div>
       <div className="absolute bottom-[10%] -right-20 w-80 h-80 bg-indigo-600/10 rounded-full blur-[100px]"></div>
 
-      {/* Brand Header */}
-      <div className="flex items-center gap-3 mb-8 relative z-10">
-        <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/20">
-          <div className="w-7 h-7 border-2 border-white rounded-full border-t-transparent"></div>
-        </div>
-        <h1 className="text-3xl font-bold text-white tracking-tight">
-          Learnvis
-        </h1>
-      </div>
+      <Header variant="auth" />
 
       {/* Login Card */}
       <div className="w-full max-w-md bg-[#111827]/40 backdrop-blur-2xl border border-white/10 p-10 rounded-[2rem] shadow-2xl relative z-10">
@@ -93,13 +94,26 @@ const Login = () => {
               />
               <span className="group-hover:text-gray-300">Remember Me</span>
             </label>
-            <span className="text-blue-500 hover:text-blue-400 cursor-pointer font-medium transition-colors">
+            <span
+              onClick={() => navigate("/forgot-password")}
+              className="text-blue-500 hover:text-blue-400 cursor-pointer font-medium transition-colors"
+            >
               Forgot Password?
             </span>
           </div>
 
-          <button className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 active:scale-[0.98]">
-            Login
+          <button
+            className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-600/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <span className="flex items-center justify-center gap-2">
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                Logging in...
+              </span>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
 
@@ -141,6 +155,14 @@ const Login = () => {
             >
               Sign up
             </span>
+          </p>
+        </div>
+
+        {/* Demo credentials hint */}
+        <div className="mt-6 p-4 bg-blue-600/10 border border-blue-500/20 rounded-xl">
+          <p className="text-xs text-blue-300 text-center">
+            <strong>Demo:</strong> Use any email to login as student, or
+            "admin@learnvis.com" for admin access
           </p>
         </div>
       </div>
