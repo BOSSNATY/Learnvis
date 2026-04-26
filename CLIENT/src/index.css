@@ -1,0 +1,7 @@
+/* If you are on Tailwind v4, you use this single import: */
+@import "tailwindcss";
+
+/* If that doesn't work, stay with the v3 style: */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

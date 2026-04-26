@@ -34,3 +34,44 @@ exports.signup = async (req, res) => {
     connection.release();
   }
 };
+
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // 1. Check if user exists and get their credentials
+    const [users] = await pool.execute(
+      "SELECT u.id, u.name, u.role, c.password_hash FROM users u " +
+        "JOIN user_credentials c ON u.id = c.user_id " +
+        "WHERE u.email = ?",
+      [email],
+    );
+
+    if (users.length === 0) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    const user = users[0];
+
+    // 2. Compare password with the hash
+    const isMatch = await bcrypt.compare(password, user.password_hash);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+
+    // 3. Create a JWT token
+    const token = jwt.sign(
+      { userId: user.id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "24h" },
+    );
+
+    res.json({
+      message: "Login successful",
+      token,
+      user: { id: user.id, name: user.name, role: user.role },
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
